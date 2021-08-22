@@ -11,6 +11,23 @@
     <form action="/upload" method="post" enctype="multipart/form-data">
         <input type="file" name="avatar" multiple/>
         <button>Gönder</button>
+        <br>
+        <br>
+        <div class="images"></div>
+        <script>
+          const loadImages = async () => {
+              const response = await fetch('http://localhost:3162/images').then(response => response.json());
+              const imagesElement = document.querySelector('.images');
+              imagesElement.innerHTML = '';
+              response.images.forEach(image => {
+                const img = document.createElement('img');
+                img.src = image.filePath;
+                img.height = '200';
+                imagesElement.appendChild(img);
+              });
+          };
+          window.onload = loadImages;
+        </script>
       </form>
 </body>
 </html>
